@@ -23,19 +23,19 @@ func Max[T cmp.Ordered](max T) Validate[T] {
 	}
 }
 
-func InRange[T cmp.Ordered](min, max T) Validate[T] {
+func Between[T cmp.Ordered](min, max T) Validate[T] {
 	return func(value T) error {
 		if value < min || value > max {
-			return fmt.Errorf("%v must be in range %v-%v", value, min, max)
+			return fmt.Errorf("%v must be between %v and %v", value, min, max)
 		}
 		return nil
 	}
 }
 
-func OutOfRange[T cmp.Ordered](min, max T) Validate[T] {
+func NotBetween[T cmp.Ordered](min, max T) Validate[T] {
 	return func(value T) error {
 		if value >= min && value <= max {
-			return fmt.Errorf("%v must be out of range %v-%v", value, min, max)
+			return fmt.Errorf("%v must not be between %v and %v", value, min, max)
 		}
 		return nil
 	}
