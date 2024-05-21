@@ -1,5 +1,7 @@
 package please
 
+import "errors"
+
 type Validate[T any] func(T) error
 
 func (v Validate[T]) WithError(cause error) Validate[T] {
@@ -34,4 +36,16 @@ func Collect[T any](value T, vs ...Validate[T]) []error {
 		return nil
 	}
 	return errs
+}
+
+func JoinFunc[T any](value T, join func(...error) error, vs ...Validate[T]) error {
+	errs := Collect(value, vs...)
+	if len(errs) == 0 {
+		return nil
+	}
+	return join(errs...)
+}
+
+func Join[T any](value T, vs ...Validate[T]) error {
+	return JoinFunc(value, errors.Join, vs...)
 }
