@@ -2,20 +2,24 @@ package please
 
 import "fmt"
 
-func Empty[T comparable](value T) error {
-	var empty T
-	if value == empty {
-		return nil
+func Empty[T comparable]() Validate[T] {
+	return func(value T) error {
+		var empty T
+		if value == empty {
+			return nil
+		}
+		return fmt.Errorf("%v must be empty", value)
 	}
-	return fmt.Errorf("%v must be empty", value)
 }
 
-func NotEmpty[T comparable](value T) error {
-	var empty T
-	if value != empty {
-		return nil
+func NotEmpty[T comparable]() Validate[T] {
+	return func(value T) error {
+		var empty T
+		if value != empty {
+			return nil
+		}
+		return fmt.Errorf("%v must not be empty", value)
 	}
-	return fmt.Errorf("%v must not be empty", value)
 }
 
 func Equal[T comparable](target T) Validate[T] {
