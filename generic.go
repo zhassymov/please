@@ -49,3 +49,9 @@ func JoinFunc[T any](value T, join func(...error) error, vs ...Validate[T]) erro
 func Join[T any](value T, vs ...Validate[T]) error {
 	return JoinFunc(value, errors.Join, vs...)
 }
+
+func Nothing[T any]() Validate[T] {
+	return func(value T) error {
+		return nil
+	}
+}
