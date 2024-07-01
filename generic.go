@@ -1,6 +1,9 @@
 package please
 
-import "errors"
+import (
+	"errors"
+	"fmt"
+)
 
 type Validate[T any] func(T) error
 
@@ -8,6 +11,15 @@ func (v Validate[T]) WithError(cause error) Validate[T] {
 	return func(value T) error {
 		if err := v(value); err != nil {
 			return cause
+		}
+		return nil
+	}
+}
+
+func (v Validate[T]) WrapError(cause error) Validate[T] {
+	return func(value T) error {
+		if err := v(value); err != nil {
+			return fmt.Errorf("%w: %w", cause, err)
 		}
 		return nil
 	}
