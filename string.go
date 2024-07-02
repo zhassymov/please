@@ -8,6 +8,7 @@ import (
 	"unicode/utf8"
 )
 
+// StringLen returns a validation function that checks whether the length of the string is equal to the specified number.
 func StringLen(n int) Validate[string] {
 	return func(s string) error {
 		if len(s) != n {
@@ -17,6 +18,7 @@ func StringLen(n int) Validate[string] {
 	}
 }
 
+// StringMinLen returns a validation function that checks whether the length of the string is at least the specified number.
 func StringMinLen(n int) Validate[string] {
 	return func(s string) error {
 		if len(s) < n {
@@ -26,6 +28,7 @@ func StringMinLen(n int) Validate[string] {
 	}
 }
 
+// StringMaxLen returns a validation function that checks whether the length of the string is at most the specified number.
 func StringMaxLen(n int) Validate[string] {
 	return func(s string) error {
 		if len(s) > n {
@@ -35,6 +38,7 @@ func StringMaxLen(n int) Validate[string] {
 	}
 }
 
+// StringLenBetween returns a validation function that checks whether the length of the string is between the specified number.
 func StringLenBetween(x, y int) Validate[string] {
 	return func(s string) error {
 		minimal := min(x, y)
@@ -46,6 +50,7 @@ func StringLenBetween(x, y int) Validate[string] {
 	}
 }
 
+// StringLenNotBetween returns a validation function that checks whether the length of the string is not between the specified number.
 func StringLenNotBetween(x, y int) Validate[string] {
 	return func(s string) error {
 		minimal := min(x, y)
@@ -57,6 +62,7 @@ func StringLenNotBetween(x, y int) Validate[string] {
 	}
 }
 
+// StringUTF8 returns a validation function that checks whether the string is a valid UTF-8 string.
 func StringUTF8() Validate[string] {
 	return func(s string) error {
 		if !utf8.ValidString(s) {
@@ -66,6 +72,7 @@ func StringUTF8() Validate[string] {
 	}
 }
 
+// StringRuneCount returns a validation function that checks whether the number of runes in the string is exactly equal to the specified number.
 func StringRuneCount(n int) Validate[string] {
 	return func(s string) error {
 		if utf8.RuneCountInString(s) != n {
@@ -75,6 +82,7 @@ func StringRuneCount(n int) Validate[string] {
 	}
 }
 
+// StringMinRuneCount returns a validation function that checks whether the number of runes in the string is at least the specified number.
 func StringMinRuneCount(n int) Validate[string] {
 	return func(s string) error {
 		if utf8.RuneCountInString(s) < n {
@@ -84,6 +92,7 @@ func StringMinRuneCount(n int) Validate[string] {
 	}
 }
 
+// StringMaxRuneCount returns a validation function that checks whether the number of runes in the string is at most the specified number.
 func StringMaxRuneCount(n int) Validate[string] {
 	return func(s string) error {
 		if utf8.RuneCountInString(s) > n {
@@ -93,6 +102,7 @@ func StringMaxRuneCount(n int) Validate[string] {
 	}
 }
 
+// StringRuneCountBetween returns a validation function that checks whether the number of runes in the string is between the specified numbers.
 func StringRuneCountBetween(x, y int) Validate[string] {
 	return func(s string) error {
 		minimal := min(x, y)
@@ -105,6 +115,7 @@ func StringRuneCountBetween(x, y int) Validate[string] {
 	}
 }
 
+// StringRuneCountNotBetween returns a validation function that checks whether the number of runes in the string is not between the specified numbers.
 func StringRuneCountNotBetween(x, y int) Validate[string] {
 	return func(s string) error {
 		minimal := min(x, y)
@@ -117,6 +128,7 @@ func StringRuneCountNotBetween(x, y int) Validate[string] {
 	}
 }
 
+// uniqueRuneCount returns the number of unique runes in the string.
 func uniqueRuneCount(s string) int {
 	unique := make(map[rune]bool)
 	for _, char := range s {
@@ -125,6 +137,7 @@ func uniqueRuneCount(s string) int {
 	return len(unique)
 }
 
+// StringUniqueRuneCount returns a validation function that checks whether the number of unique runes in the string is exactly equal to the specified number.
 func StringUniqueRuneCount(n int) Validate[string] {
 	return func(s string) error {
 		if uniqueRuneCount(s) != n {
@@ -134,6 +147,7 @@ func StringUniqueRuneCount(n int) Validate[string] {
 	}
 }
 
+// StringMinUniqueRuneCount returns a validation function that checks whether the number of unique runes in the string is at least the specified number.
 func StringMinUniqueRuneCount(n int) Validate[string] {
 	return func(s string) error {
 		if uniqueRuneCount(s) < n {
@@ -143,6 +157,7 @@ func StringMinUniqueRuneCount(n int) Validate[string] {
 	}
 }
 
+// StringMaxUniqueRuneCount returns a validation function that checks whether the number of unique runes in the string is at most the specified number.
 func StringMaxUniqueRuneCount(n int) Validate[string] {
 	return func(s string) error {
 		if uniqueRuneCount(s) < n {
@@ -152,6 +167,7 @@ func StringMaxUniqueRuneCount(n int) Validate[string] {
 	}
 }
 
+// StringUniqueRuneCountBetween returns a validation function that checks whether the number of unique runes in the string is between the specified numbers.
 func StringUniqueRuneCountBetween(x, y int) Validate[string] {
 	return func(s string) error {
 		minimal := min(x, y)
@@ -164,6 +180,7 @@ func StringUniqueRuneCountBetween(x, y int) Validate[string] {
 	}
 }
 
+// StringUniqueRuneCountNotBetween returns a validation function that checks whether the number of unique runes in the string is not between the specified numbers.
 func StringUniqueRuneCountNotBetween(x, y int) Validate[string] {
 	return func(s string) error {
 		minimal := min(x, y)
@@ -176,6 +193,7 @@ func StringUniqueRuneCountNotBetween(x, y int) Validate[string] {
 	}
 }
 
+// StringContains returns a validation function that checks whether the string contains the specified substring.
 func StringContains(substr string) Validate[string] {
 	return func(s string) error {
 		if !strings.Contains(s, substr) {
@@ -185,6 +203,7 @@ func StringContains(substr string) Validate[string] {
 	}
 }
 
+// StringNotContains returns a validation function that checks whether the string does not contain the specified substring.
 func StringNotContains(substr string) Validate[string] {
 	return func(s string) error {
 		if strings.Contains(s, substr) {
@@ -194,6 +213,7 @@ func StringNotContains(substr string) Validate[string] {
 	}
 }
 
+// StringHasPrefix returns a validation function that checks whether the string begins with prefix.
 func StringHasPrefix(prefix string) Validate[string] {
 	return func(s string) error {
 		if !strings.HasPrefix(s, prefix) {
@@ -203,6 +223,7 @@ func StringHasPrefix(prefix string) Validate[string] {
 	}
 }
 
+// StringNotHasPrefix returns a validation function that checks whether the string does not begin with prefix.
 func StringNotHasPrefix(prefix string) Validate[string] {
 	return func(s string) error {
 		if strings.HasPrefix(s, prefix) {
@@ -212,6 +233,7 @@ func StringNotHasPrefix(prefix string) Validate[string] {
 	}
 }
 
+// StringHasSuffix returns a validation function that checks whether the string ends with suffix.
 func StringHasSuffix(suffix string) Validate[string] {
 	return func(s string) error {
 		if !strings.HasSuffix(s, suffix) {
@@ -221,6 +243,7 @@ func StringHasSuffix(suffix string) Validate[string] {
 	}
 }
 
+// StringNotHasSuffix returns a validation function that checks whether the string does not end with suffix.
 func StringNotHasSuffix(suffix string) Validate[string] {
 	return func(s string) error {
 		if !strings.HasSuffix(s, suffix) {
@@ -230,6 +253,7 @@ func StringNotHasSuffix(suffix string) Validate[string] {
 	}
 }
 
+// StringNumeric returns a validation function that checks whether the string contains only numeric characters.
 func StringNumeric() Validate[string] {
 	return func(s string) error {
 		for _, char := range s {
@@ -242,6 +266,7 @@ func StringNumeric() Validate[string] {
 	}
 }
 
+// StringAlpha returns a validation function that checks whether the string contains only alphabet characters.
 func StringAlpha() Validate[string] {
 	return func(s string) error {
 		for _, char := range s {
@@ -257,6 +282,7 @@ func StringAlpha() Validate[string] {
 	}
 }
 
+// StringAlphaNumeric returns a validation function that checks whether the string contains only alphanumeric characters.
 func StringAlphaNumeric() Validate[string] {
 	return func(s string) error {
 		for _, char := range s {
@@ -275,6 +301,7 @@ func StringAlphaNumeric() Validate[string] {
 	}
 }
 
+// StringASCII returns a validation function that checks whether the string contains only ASCII printable characters.
 func StringASCII() Validate[string] {
 	return func(s string) error {
 		for _, char := range s {
@@ -287,6 +314,7 @@ func StringASCII() Validate[string] {
 	}
 }
 
+// StringUnicodeLetters returns a validation function that checks whether the string contains only unicode letters.
 func StringUnicodeLetters() Validate[string] {
 	return func(s string) error {
 		for _, char := range s {
@@ -298,6 +326,7 @@ func StringUnicodeLetters() Validate[string] {
 	}
 }
 
+// StringUnicodeDigits returns a validation function that checks whether the string contains only unicode digits.
 func StringUnicodeDigits() Validate[string] {
 	return func(s string) error {
 		for _, char := range s {
@@ -309,6 +338,7 @@ func StringUnicodeDigits() Validate[string] {
 	}
 }
 
+// StringAllow returns a validation function that checks whether the string contains only allowed characters.
 func StringAllow(charset string) Validate[string] {
 	return func(s string) error {
 		for _, char := range s {
@@ -320,6 +350,7 @@ func StringAllow(charset string) Validate[string] {
 	}
 }
 
+// StringNotAllow returns a validation function that checks whether the string does not contain disallowed characters.
 func StringNotAllow(charset string) Validate[string] {
 	return func(s string) error {
 		if strings.ContainsAny(s, charset) {
