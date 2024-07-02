@@ -2,7 +2,7 @@ package please
 
 import "fmt"
 
-// Empty returns a validation function that checks if the value is empty.
+// Empty returns a validation function that checks whether the value is empty.
 func Empty[T comparable]() Validate[T] {
 	return func(value T) error {
 		var empty T
@@ -13,7 +13,7 @@ func Empty[T comparable]() Validate[T] {
 	}
 }
 
-// NotEmpty returns a validation function that checks if the value is not empty.
+// NotEmpty returns a validation function that checks whether the value is not empty.
 func NotEmpty[T comparable]() Validate[T] {
 	return func(value T) error {
 		var empty T
@@ -24,7 +24,7 @@ func NotEmpty[T comparable]() Validate[T] {
 	}
 }
 
-// Equal returns a validation function that checks if the value is equal to the target.
+// Equal returns a validation function that checks whether the value is equal to the target.
 func Equal[T comparable](target T) Validate[T] {
 	return func(value T) error {
 		if value != target {
@@ -34,7 +34,7 @@ func Equal[T comparable](target T) Validate[T] {
 	}
 }
 
-// NotEqual returns a validation function that checks if the value is not equal to the target.
+// NotEqual returns a validation function that checks whether the value is not equal to the target.
 func NotEqual[T comparable](target T) Validate[T] {
 	return func(value T) error {
 		if value == target {
@@ -44,7 +44,7 @@ func NotEqual[T comparable](target T) Validate[T] {
 	}
 }
 
-// OneOf returns a validation function that checks if the value is one of the enum keys.
+// OneOf returns a validation function that checks whether the value exists in the enum slice.
 func OneOf[T comparable](enum ...T) Validate[T] {
 	return func(value T) error {
 		for _, e := range enum {
@@ -56,7 +56,7 @@ func OneOf[T comparable](enum ...T) Validate[T] {
 	}
 }
 
-// NotOneOf returns a validation function that checks if the value is not one of the enum keys.
+// NotOneOf returns a validation function that checks whether the value does not exist in the enum slice.
 func NotOneOf[T comparable](enum ...T) Validate[T] {
 	return func(value T) error {
 		for _, e := range enum {
@@ -80,7 +80,7 @@ func keys[T comparable](m map[T]bool) []T {
 	return s
 }
 
-// OneIn returns a validation function that checks if the value is one in the enum map.
+// OneIn returns a validation function that checks whether the value exists in the enum map keys.
 func OneIn[T comparable](enum map[T]bool) Validate[T] {
 	return func(value T) error {
 		if _, ok := enum[value]; ok {
@@ -90,7 +90,7 @@ func OneIn[T comparable](enum map[T]bool) Validate[T] {
 	}
 }
 
-// NotOneIn returns a validation function that checks if the value is not one in the enum map.
+// NotOneIn returns a validation function that checks whether the value does not exist in the enum map keys.
 func NotOneIn[T comparable](enum map[T]bool) Validate[T] {
 	return func(value T) error {
 		if _, ok := enum[value]; ok {
