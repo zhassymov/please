@@ -28,9 +28,9 @@ func (v Validate[T]) WrapError(cause error) Validate[T] {
 	}
 }
 
-// Abort returns the first error when executing the validation functions.
-func Abort[T any](value T, vs ...Validate[T]) error {
-	for _, v := range vs {
+// Abort returns the first error when executing the validation functions and aborts the execution.
+func Abort[T any](value T, opts ...Validate[T]) error {
+	for _, v := range opts {
 		if err := v(value); err != nil {
 			return err
 		}
@@ -38,13 +38,13 @@ func Abort[T any](value T, vs ...Validate[T]) error {
 	return nil
 }
 
-// Collect returns all errors when executing the validation functions.
-func Collect[T any](value T, vs ...Validate[T]) []error {
-	if len(vs) == 0 {
+// Collect collects all errors when executing the validation functions.
+func Collect[T any](value T, opts ...Validate[T]) []error {
+	if len(opts) == 0 {
 		return nil
 	}
-	errs := make([]error, 0, len(vs))
-	for _, v := range vs {
+	errs := make([]error, 0, len(opts))
+	for _, v := range opts {
 		if err := v(value); err != nil {
 			errs = append(errs, err)
 		}
@@ -55,18 +55,18 @@ func Collect[T any](value T, vs ...Validate[T]) []error {
 	return errs
 }
 
-// JoinFunc returns the joined error when executing the validation functions with the specified join function.
-func JoinFunc[T any](value T, join func(...error) error, vs ...Validate[T]) error {
-	errs := Collect(value, vs...)
+// JoinFunc joins all errors using the specified join function when executing the validation functions.
+func JoinFunc[T any](value T, join func(...error) error, opts ...Validate[T]) error {
+	errs := Collect(value, opts...)
 	if len(errs) == 0 {
 		return nil
 	}
 	return join(errs...)
 }
 
-// Join returns the joined error when executing the validation functions.
-func Join[T any](value T, vs ...Validate[T]) error {
-	return JoinFunc(value, errors.Join, vs...)
+// Join joins all errors using the errors.Join function when executing the validation functions.
+func Join[T any](value T, opts ...Validate[T]) error {
+	return JoinFunc(value, errors.Join, opts...)
 }
 
 // Nothing returns a validation function that always returns nil.
