@@ -354,7 +354,16 @@ func StringAllow(charset string) Validate[string] {
 func StringNotAllow(charset string) Validate[string] {
 	return func(s string) error {
 		if strings.ContainsAny(s, charset) {
-			return fmt.Errorf("must not contain disallowed characters: %v", charset)
+			return fmt.Errorf("must not contain disallowed characters: %q", charset)
+		}
+		return nil
+	}
+}
+
+func StringContainsAny(charset string) Validate[string] {
+	return func(s string) error {
+		if !strings.ContainsAny(s, charset) {
+			return fmt.Errorf("must contain one of characters: %q", charset)
 		}
 		return nil
 	}
