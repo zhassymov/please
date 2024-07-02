@@ -170,7 +170,7 @@ func StringUniqueRuneCountNotBetween(x, y int) Validate[string] {
 		maximal := max(x, y)
 		count := uniqueRuneCount(s)
 		if count >= minimal && count <= maximal {
-			return fmt.Errorf("must contain up to %d or more than %d characters", minimal, maximal)
+			return fmt.Errorf("must contain up to %d or more than %d unique characters", minimal, maximal)
 		}
 		return nil
 	}
