@@ -6,6 +6,7 @@ import (
 	"slices"
 )
 
+// SliceLen returns a validation function that checks if the length of the slice is equal to the specified value.
 func SliceLen[S ~[]E, E any](n int) Validate[S] {
 	return func(s S) error {
 		if len(s) != n {
@@ -15,6 +16,7 @@ func SliceLen[S ~[]E, E any](n int) Validate[S] {
 	}
 }
 
+// SliceMinLen returns a validation function that checks if the length of the slice is at least the specified value.
 func SliceMinLen[S ~[]E, E any](n int) Validate[S] {
 	return func(s S) error {
 		if len(s) < n {
@@ -24,6 +26,7 @@ func SliceMinLen[S ~[]E, E any](n int) Validate[S] {
 	}
 }
 
+// SliceMaxLen returns a validation function that checks if the length of the slice is at most the specified value.
 func SliceMaxLen[S ~[]E, E any](n int) Validate[S] {
 	return func(s S) error {
 		if len(s) > n {
@@ -33,6 +36,7 @@ func SliceMaxLen[S ~[]E, E any](n int) Validate[S] {
 	}
 }
 
+// SliceLenBetween returns a validation function that checks if the length of the slice is between the specified values.
 func SliceLenBetween[S ~[]E, E any](x, y int) Validate[S] {
 	return func(s S) error {
 		minimal := min(x, y)
@@ -44,6 +48,7 @@ func SliceLenBetween[S ~[]E, E any](x, y int) Validate[S] {
 	}
 }
 
+// SliceLenNotBetween returns a validation function that checks if the length of the slice is not between the specified values.
 func SliceLenNotBetween[S ~[]E, E any](x, y int) Validate[S] {
 	return func(s S) error {
 		minimal := min(x, y)
@@ -55,6 +60,7 @@ func SliceLenNotBetween[S ~[]E, E any](x, y int) Validate[S] {
 	}
 }
 
+// SliceContain returns a validation function that checks if the slice contains the specified value.
 func SliceContain[S ~[]E, E comparable](value E) Validate[S] {
 	return func(s S) error {
 		if !slices.Contains(s, value) {
@@ -64,6 +70,7 @@ func SliceContain[S ~[]E, E comparable](value E) Validate[S] {
 	}
 }
 
+// SliceNotContain returns a validation function that checks if the slice does not contain the specified value.
 func SliceNotContain[S ~[]E, E comparable](value E) Validate[S] {
 	return func(s S) error {
 		if slices.Contains(s, value) {
@@ -73,6 +80,7 @@ func SliceNotContain[S ~[]E, E comparable](value E) Validate[S] {
 	}
 }
 
+// SliceEach returns a validation function that checks if each element of the slice satisfies the specified validation functions.
 func SliceEach[S ~[]E, E any](opts ...Validate[E]) Validate[S] {
 	return func(s S) error {
 		errs := make([]error, 0, len(opts))
