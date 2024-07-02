@@ -5,7 +5,7 @@ import (
 	"fmt"
 )
 
-// Min returns a validation function that checks if the value is greater or equal than the minimal value.
+// Min returns a validation function that checks whether the value is greater or equal than the minimal value.
 func Min[T cmp.Ordered](minimal T) Validate[T] {
 	return func(value T) error {
 		if value < minimal {
@@ -15,7 +15,7 @@ func Min[T cmp.Ordered](minimal T) Validate[T] {
 	}
 }
 
-// Max returns a validation function that checks if the value is less or equal than the maximal value.
+// Max returns a validation function that checks whether the value is less or equal than the maximal value.
 func Max[T cmp.Ordered](maximal T) Validate[T] {
 	return func(value T) error {
 		if value > maximal {
@@ -25,7 +25,7 @@ func Max[T cmp.Ordered](maximal T) Validate[T] {
 	}
 }
 
-// Between returns a validation function that checks if the value is between the minimal and maximal values.
+// Between returns a validation function that checks whether the value is between the minimal and maximal values.
 func Between[T cmp.Ordered](x, y T) Validate[T] {
 	return func(value T) error {
 		minimal := min(x, y)
@@ -37,7 +37,7 @@ func Between[T cmp.Ordered](x, y T) Validate[T] {
 	}
 }
 
-// NotBetween returns a validation function that checks if the value is not between the minimal and maximal values.
+// NotBetween returns a validation function that checks whether the value is not between the minimal and maximal values.
 func NotBetween[T cmp.Ordered](x, y T) Validate[T] {
 	return func(value T) error {
 		minimal := min(x, y)
