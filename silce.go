@@ -64,7 +64,7 @@ func SliceLenNotBetween[S ~[]E, E any](x, y int) Validate[S] {
 func SliceContain[S ~[]E, E comparable](value E) Validate[S] {
 	return func(s S) error {
 		if !slices.Contains(s, value) {
-			return fmt.Errorf("%s must contain %v", s, value)
+			return fmt.Errorf("%v must contain %v", s, value)
 		}
 		return nil
 	}
@@ -74,7 +74,7 @@ func SliceContain[S ~[]E, E comparable](value E) Validate[S] {
 func SliceNotContain[S ~[]E, E comparable](value E) Validate[S] {
 	return func(s S) error {
 		if slices.Contains(s, value) {
-			return fmt.Errorf("%s must not contain %v", s, value)
+			return fmt.Errorf("%v must not contain %v", s, value)
 		}
 		return nil
 	}
