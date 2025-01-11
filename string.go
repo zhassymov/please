@@ -257,7 +257,7 @@ func StringNotHasSuffix(suffix string) Validate[string] {
 func StringNumeric() Validate[string] {
 	return func(s string) error {
 		for _, char := range s {
-			if char > '0' && char < '9' {
+			if char >= '0' && char <= '9' {
 				continue
 			}
 			return errors.New("must contain only numeric characters")
@@ -270,10 +270,10 @@ func StringNumeric() Validate[string] {
 func StringAlpha() Validate[string] {
 	return func(s string) error {
 		for _, char := range s {
-			if char > 'A' && char < 'Z' {
+			if char >= 'A' && char <= 'Z' {
 				continue
 			}
-			if char > 'a' && char < 'z' {
+			if char >= 'a' && char <= 'z' {
 				continue
 			}
 			return errors.New("must contain only alphabet characters")
@@ -286,13 +286,13 @@ func StringAlpha() Validate[string] {
 func StringAlphaNumeric() Validate[string] {
 	return func(s string) error {
 		for _, char := range s {
-			if char > '0' && char < '9' {
+			if char >= '0' && char <= '9' {
 				continue
 			}
-			if char > 'A' && char < 'Z' {
+			if char >= 'A' && char <= 'Z' {
 				continue
 			}
-			if char > 'a' && char < 'z' {
+			if char >= 'a' && char <= 'z' {
 				continue
 			}
 			return errors.New("must contain only alphanumeric characters")
@@ -302,10 +302,10 @@ func StringAlphaNumeric() Validate[string] {
 }
 
 // StringASCII returns a validation function that checks whether the string contains only ASCII printable characters.
-func StringASCII() Validate[string] {
+func StringPrintableASCII() Validate[string] {
 	return func(s string) error {
 		for _, char := range s {
-			if char >= 33 && char <= 126 {
+			if char >= 33 && char <= 126 { // https://www.ascii-code.com/characters/printable-characters
 				continue
 			}
 			return errors.New("must contain only ascii characters")
